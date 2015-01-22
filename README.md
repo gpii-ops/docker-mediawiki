@@ -24,21 +24,24 @@ This repository is used to build [Mediawiki](https://www.mediawiki.org) Docker i
 
 ### Download
 
-    docker pull gpii/rbmm-java
+    docker pull gpii/mediawiki
 
 
-#### Run `rbmm-java` (RuleBased MatchMaker Java WS)
+#### Run `mediawiki` (Mediawiki)
 
 
 ```
 docker run \
 -d \
--p 8080:8080 \
---name="rbmm-java" \
-inclusivedesign/rbmm-java
+-p 8081:80 \
+--name="mediawiki" \
+-e "SERVER_NAME=wiki.test.org" \
+-v $PWD/data/images:/var/www/wiki/images/ \
+gpii/mediawiki
 ```
-
 
 ### Build your own image
 
-    docker build --rm=true -t <your name>/rbmm-java .
+The build system takes the mediawiki source stored in `data` directory.
+
+    docker build --rm=true -t <your name>/mediawiki .
