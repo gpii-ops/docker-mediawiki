@@ -4,6 +4,8 @@ SERVER_NAME=${SERVER_NAME:-"wiki.test.org"}
 
 chown -R nginx:nginx /var/www/wiki/images/
 
+cp /settings/LocalSettings.php /var/www/wiki/
+
 # http://www.mediawiki.org/wiki/Manual:Security
 sed -i 's/allow_url_fopen = [A-z.-]*/allow_url_fopen = Off/g' /etc/php.ini
 
@@ -40,17 +42,6 @@ server {
                 fastcgi_pass 127.0.0.1:9000;
                 fastcgi_index index.php;
                 include fastcgi_params;
-        }
- 
-        location ~* \.(js|css|png|jpg|jpeg|gif|ico)\$ {
-                try_files \$uri /index.php;
-                expires max;
-                log_not_found off;
-        }       
- 
-        location = /_.gif {
-                expires max;
-                empty_gif;
         }
  
         location ^~ /cache/ {
