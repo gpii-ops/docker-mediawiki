@@ -6,6 +6,11 @@ chown -R nginx:nginx /var/www/wiki/images/
 
 cp /settings/LocalSettings.php /var/www/wiki/
 
+if [ $MYSQL_SSL ]; then
+   sed -e "s|\$this->mConn = mysql_pconnect( \$realServer, \$user, \$password );|\$this->mConn = mysql_pconnect( \$realServer, \$user, \$password, MYSQL_CLIENT_SSL );|" -i /var/www/wiki/includes/db/DatabaseMysql.php
+   sed -e "s|\$this->mConn = mysql_connect( \$realServer, \$user, \$password, true );|\$this->mConn = mysql_connect( \$realServer, \$user, \$password, true, MYSQL_CLIENT_SSL );|" -i /var/www/wiki/includes/db/DatabaseMysql.php
+fi
+
 # http://www.mediawiki.org/wiki/Manual:Security
 sed -i 's/allow_url_fopen = [A-z.-]*/allow_url_fopen = Off/g' /etc/php.ini
 
