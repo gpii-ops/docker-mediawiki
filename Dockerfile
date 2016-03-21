@@ -1,13 +1,17 @@
-FROM inclusivedesign/php:5.4
+FROM inclusivedesign/centos
 
-ADD data/ /var/www/wiki/
-ADD start.sh /usr/local/bin/start.sh
+WORKDIR /etc/ansible/playbooks
 
-RUN chmod +x /usr/local/bin/start.sh && \
-    yum -y install ImageMagick
+COPY provisioning/*.yml /etc/ansible/playbooks/
 
-VOLUME ["/var/www/wiki/images/"]
+RUN ansible-galaxy install -r requirements.yml
+
+RUN ansible-playbook build.yml --tags "install,configure,deploy"
+
+COPY provisioning/start.sh /usr/local/bin/start.sh
+
+RUN chmod 755 /usr/local/bin/start.sh
 
 EXPOSE 80
 
-CMD ["/usr/local/bin/start.sh"]
+ENTRYPOINT ["/usr/local/bin/start.sh"]

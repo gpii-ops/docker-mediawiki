@@ -1,0 +1,8 @@
+- src: https://github.com/idi-ops/ansible-facts
+  name: facts 
+- src: https://github.com/amatas/ansible-php-fpm
+  name: php-fpm
+- src: https://github.com/amatas/ansible-nginx-site
+  name: nginx-site 
+- src: https://github.com/amatas/ansible-nginx-common
+  name: nginx-common 
