@@ -9,4 +9,5 @@
     - php-fpm
     - nginx-common
     - nginx-site
+    - postfix-relay
 

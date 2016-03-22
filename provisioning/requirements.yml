@@ -6,3 +6,6 @@
   name: nginx-site 
 - src: https://github.com/amatas/ansible-nginx-common
   name: nginx-common 
+- src: https://github.com/amatas/ansible-postfix-relay.git
+  name: postfix-relay
+
