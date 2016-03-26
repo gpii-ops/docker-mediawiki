@@ -1,0 +1,13 @@
+---
+
+- hosts: local
+  connection: local
+  vars_files:
+    - build-vars.yml
+  roles:
+    - facts
+    - nginx-common
+    - nginx-site
+    - php-fpm
+    - postfix-relay
+
